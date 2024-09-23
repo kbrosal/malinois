@@ -68,10 +68,6 @@ def get_top_organic_results(keywords, location, client_website):
                     break
 
                 
-
-        except requests.exceptions.HTTPError as e:
-            print(f"HTTP error occurred for keyword '{keyword}': {e}")
-
         except Exception as e:
             print(f"An error occurred for keyword '{keyword}': {e}")
 
