@@ -28,7 +28,7 @@ def normalize_domain(url):
     extract_result = tldextract.extract(url)
     return f"{extract_result.domain}.{extract_result.suffix}"
 
-def perform_search(keyword, location, client, excluded_domains):
+def perform_search(keyword, location, client, excluded_domains, gl):
     """
     Perform the actual search for a given keyword and location, applying domain filters.
     """
@@ -36,7 +36,7 @@ def perform_search(keyword, location, client, excluded_domains):
             "q": keyword,
             "location": location,
             "hl": "en",  # Language
-            "gl": "us",  # Country/Region code
+            "gl": gl,  # Country/Region code
             "google_domain": "google.com",  # Google domain
             "engine": "google"
         }
@@ -79,6 +79,7 @@ def get_results():
     keywords = data.get('keywords', [])
     location = data.get('location')
     client_website = data.get('client_website')
+    gl = data.get('gl', 'us')
     
     excluded_domains = EXCLUDED_DOMAINS.copy()
 
@@ -95,7 +96,7 @@ def get_results():
     for keyword in keywords:
         try:
             logging.info(f"Processing keyword: {keyword}")
-            filtered_results = perform_search(keyword, location, client, excluded_domains)
+            filtered_results = perform_search(keyword, location, client, excluded_domains, gl)
             all_results[keyword] = filtered_results
 
         except Exception as e:
