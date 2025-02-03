@@ -11,6 +11,11 @@ app = Flask(__name__)
 
 logging.basicConfig(level=logging.INFO)
 
+# Homepage route
+@app.route("/", methods=["GET"])
+def home():
+    return "Welcome to Malinois! Use POST /get-results to fetch results.", 200
+
 # Domain names to exclude
 EXCLUDED_DOMAINS = [
     "amazon.com", "ebay.com", "walmart.com", "tesla.com", "facebook.com", "instagram.com", 
@@ -106,4 +111,5 @@ def get_results():
     return jsonify(all_results)
 
 if __name__ == '__main__':
-    app.run(debug=True)  
+    port = int(os.getenv("PORT", 5000))  # Railway's Port
+    app.run(host="0.0.0.0", port=port, debug=True)
