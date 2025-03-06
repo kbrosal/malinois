@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keyword Search App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <img src="flaminggo-logo.png" alt="Flaminggo Logo" class="flaminggo-logo">
+  </header>
+
+  <main>
+    <h1>Search Organic Pages</h1>
+    <form id="search-form">
+      <textarea id="input-keywords" name="keywords" placeholder="Enter keywords, one per line"></textarea>
+      <div class="column2">
+        <input type="text" id="location" name="location" class="locations" placeholder="Location">
+        <input type="text" id="client-domain" name="client_website" class="domain-name" placeholder="Client Website (optional)">
+      </div>
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+    <div id="results"></div>
+  </main>
+
+  <script>
+    const form = document.getElementById('search-form');
+    const resultsDiv = document.getElementById('results');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      resultsDiv.innerHTML = ''; // Clear previous results
+
+      const keywords = document.getElementById('input-keywords').value.split('\n').map(k => k.trim()).filter(k => k);
+      const location = document.getElementById('location').value.trim();
+      const clientWebsite = document.getElementById('client-domain').value.trim();
+
+      if (keywords.length === 0 || !location) {
+        resultsDiv.innerHTML = '<p style="color: red;">Please enter keywords and a location.</p>';
+        return;
+      }
+
+      const payload = {
+        keywords: keywords,
+        location: location,
+        client_website: clientWebsite
+      };
+
+      try {
+        const response = await fetch('https://web-production-a5fb.up.railway.app/get-results', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch results.');
+        }
+
+        const data = await response.json();
+        displayResults(data);
+      } catch (error) {
+        resultsDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+      }
+    });
+
+    function displayResults(data) {
+      const resultsHtml = Object.entries(data)
+        .map(([keyword, urls]) => `
+          <div>
+            <h3>Results for "${keyword}":</h3>
+            <ul>${urls.map(url => `<li><a href="${url}" target="_blank">${url}</a></li>`).join('')}</ul>
+          </div>
+        `)
+        .join('');
+      resultsDiv.innerHTML = resultsHtml || '<p>No results found.</p>';
+    }
+  </script>
+</body>
+</html>

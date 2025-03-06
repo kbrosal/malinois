@@ -1,4 +1,3 @@
-
 import serpapi
 from dotenv import load_dotenv
 import os
@@ -23,7 +22,7 @@ def normalize_domain(url):
     extract_result = tldextract.extract(url)
     return f"{extract_result.domain}.{extract_result.suffix}"
 
-def get_top_organic_results(keywords, location, client_website):
+def get_top_organic_results(keywords, location, client_website, gl):
     EXCLUDED_DOMAINS.append(client_website)
     client = serpapi.Client(api_key=os.getenv('API_KEY'))
 
@@ -34,7 +33,7 @@ def get_top_organic_results(keywords, location, client_website):
             "q": keyword,
             "location": location,
             "hl": "en",  # Language
-            "gl": "us",  # Country/Region code
+            "gl": gl,  # Country/Region code
             "google_domain": "google.com",  # Google domain
             "engine": "google"
         }
@@ -72,14 +71,13 @@ def get_top_organic_results(keywords, location, client_website):
             print(f"An error occurred for keyword '{keyword}': {e}")
 
 if __name__ == '__main__':
-    keywords = keywords = [
-    "airflow alternatives",
-    "python etl",
-    "sql server etl",
-]
-    location = "United States",
-    client_website = "hevodata.com"
+    keywords =  [ "skincare for teens", "teen skincare", "skin care for teens", "skin care for teenagers", "teen skincare set", "skincare for kids", "kids skincare", 
+                 "kids skin care" ]
     
-    get_top_organic_results(keywords, location, client_website)  
+    location = "Australia",
+    client_website = "veeorganics.com"
+    gl = "au"
+    
+    get_top_organic_results(keywords, location, client_website, gl)  
 
 
