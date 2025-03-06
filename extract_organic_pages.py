@@ -20,7 +20,7 @@ def home():
 EXCLUDED_DOMAINS = [
     "amazon.com", "ebay.com", "walmart.com", "tesla.com", "facebook.com", "instagram.com", 
     "x.com", "quora.com", "reddit.com", "google.com", "netflix.com", "microsoft.com", 
-    "yelp.com", "crunchbase.com", "yellowpages.com", "healthline.com", "harvard.edu", "stackoverflow.com"
+    "yelp.com", "crunchbase.com", "yellowpages.com", "healthline.com", "harvard.edu", "stackoverflow.com", "wikipedia.org"
 ]
 
 # TLDs to exclude
