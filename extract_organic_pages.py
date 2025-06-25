@@ -21,7 +21,9 @@ EXCLUDED_DOMAINS = [
     "amazon.com", "ebay.com", "walmart.com", "tesla.com", "facebook.com", "instagram.com", 
     "x.com", "quora.com", "reddit.com", "google.com", "netflix.com", "microsoft.com", 
     "yelp.com", "crunchbase.com", "yellowpages.com", "healthline.com", "harvard.edu", "stackoverflow.com", "wikipedia.org", "youtube.com", "whatsapp.com",
-    "chatgpt.com", "yahoo.com", "linkedin.com", "bing.com", "pinterest.com", "tripadvisor.com", "semrush.com", "clutch.co"
+    "chatgpt.com", "yahoo.com", "linkedin.com", "bing.com", "pinterest.com", "tripadvisor.com", "semrush.com", "clutch.co", "investopedia.com", "apple.com",
+    "etsy.com", "samsung.com", "amazon.co.uk", "amazon.ca", "amazon.de", "amazon.es", "amazon.fr", "amazon.it", "amazon.co.jp", "amazon.in", "amazon.cn", 
+    "amazon.com.sg", "amazon.com.mx", "amazon.ae", "amazon.com.br", "amazon.nl", "amazon.com.au", "amazon.com.tr", "amazon.sa", "amazon.se", "amazon.pl"
 ]
 
 # TLDs to exclude
